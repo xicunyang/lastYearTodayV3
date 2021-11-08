@@ -1,0 +1,58 @@
+@import "footer.wxss";
+@import "./../../fonts/index.wxss";
+
+.container {
+  width: 100%;
+  height: 100vh;
+  padding: 0;
+}
+
+.body {
+  flex: 1;
+  width: 100%;
+}
+
+.camera-dom {
+  width: 100%;
+  height: 100vh;
+}
+
+.main-canvas {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: calc(100vh - 80px);
+}
+
+.wrapper-canvas {
+  background: rgba(226, 219, 219, 0.3);
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  height: 100vh
+}
+
+.leftBall,
+.rightBall {
+  width: 40px;
+  height: 40px;
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  z-index: 999;
+  top: calc(100vh - 280px - 15px);
+  text-align: center;
+  border-radius: 5px;
+}
+
+.rightBall {
+  right: 0;
+}
+
+.leftBall:before,
+.rightBall:before {
+  font-family: 'iconfont';
+  content: '\e661';
+  font-size: 20px;
+  color: rgba(100, 100, 100, 0.3);
+  line-height: 40px;
+}

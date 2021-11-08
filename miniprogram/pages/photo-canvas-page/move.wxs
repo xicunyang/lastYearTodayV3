@@ -1,0 +1,83 @@
+// 元素x,y 0 位置跟 鼠标点击位置的距离
+var
+  leftBallY = 0,
+  moveLeftBallY = 0,
+  rightBallY = 0,
+  moveRightBallY = 0;
+
+var MarginBottom = 120;
+
+// 左边小球开始移动
+function touchstartByLeftBall(e, ownerInstance) {
+  leftBallY = e.changedTouches[0].pageY - e.target.offsetTop
+}
+
+// 左边小球移动中
+function touchmoveByLeftBall(e, ownerInstance) {
+  var window = e.currentTarget.dataset.window || {};
+
+  // 移动图片
+  moveLeftBallY = e.changedTouches[0].pageY - leftBallY
+
+  if (moveLeftBallY <= 0 || moveLeftBallY >= window.windowHeight - MarginBottom) {
+    return;
+  }
+
+  // 控制移动样式
+  e.instance.setStyle({
+    top: moveLeftBallY + 'px'
+  })
+
+  ownerInstance.callMethod('handleLeftBallMove', {
+    y: moveLeftBallY + 20
+  })
+}
+
+// 左边小球移动结束
+function touchendByLeftBall(e, ownerInstance) {
+  // 同步页面数据
+  ownerInstance.callMethod('handleLeftBallMoveEnd')
+}
+
+// 左边小球开始移动
+function touchstartByRightBall(e, ownerInstance) {
+  rightBallY = e.changedTouches[0].pageY - e.target.offsetTop
+}
+
+// 左边小球移动中
+function touchmoveByRightBall(e, ownerInstance) {
+  var window = e.currentTarget.dataset.window || {};
+
+  // 移动图片
+  moveRightBallY = e.changedTouches[0].pageY - rightBallY
+
+  if (moveRightBallY <= 0 || moveRightBallY >= window.windowHeight - MarginBottom) {
+    return;
+  }
+
+  // 控制移动样式
+  e.instance.setStyle({
+    top: moveRightBallY + 'px'
+  })
+
+  ownerInstance.callMethod('handleRightBallMove', {
+    y: moveRightBallY + 20
+  })
+}
+
+// 左边小球移动结束
+function touchendByRightBall(e, ownerInstance) {
+  // 同步页面数据
+  ownerInstance.callMethod('handleRightBallMoveEnd')
+}
+
+
+
+module.exports = {
+  touchstartByLeftBall: touchstartByLeftBall,
+  touchmoveByLeftBall: touchmoveByLeftBall,
+  touchendByLeftBall: touchendByLeftBall,
+  touchstartByRightBall: touchstartByRightBall,
+  touchmoveByRightBall: touchmoveByRightBall,
+  touchendByRightBall: touchendByRightBall,
+}

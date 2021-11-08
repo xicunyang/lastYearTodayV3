@@ -1,0 +1,3 @@
+<view>
+  <button style="margin-top: 60vh;" type="primary" bindtap="handleUploadImg">选择图片</button>
+</view>

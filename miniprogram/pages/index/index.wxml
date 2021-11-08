@@ -1,0 +1,42 @@
+<view>
+  <mp-toptips msg="{{errorMsg}}" type="error" show="{{showError}}"></mp-toptips>
+
+  <view class="guide">
+    <view class="images">
+      <image class="image-item" style="transform: translateX({{translateX}});" mode="widthFix" src="https://bj-mutou-1301404888.cos.ap-beijing.myqcloud.com/lastYearToday/step-2.png" />
+      <!-- <image class="image-item" style="transform: translateX({{translateX}});" mode="widthFix" src="https://bj-mutou-1301404888.cos.ap-beijing.myqcloud.com/lastYearToday/guide-2-2.png" /> -->
+      <!-- <image class="image-item" style="transform: translateX({{translateX}});" mode="widthFix" src="https://bj-mutou-1301404888.cos.ap-beijing.myqcloud.com/lastYearToday/guide-3-3.png" /> -->
+      <!-- <image class="image-item" style="transform: translateX({{translateX}});" mode="widthFix" src="https://bj-mutou-1301404888.cos.ap-beijing.myqcloud.com/lastYearToday/guide-4-4.png" /> -->
+      <!-- <image class="image-item" style="transform: translateX({{translateX}});" mode="widthFix" src="https://bj-mutou-1301404888.cos.ap-beijing.myqcloud.com/lastYearToday/guide-5-5.png" /> -->
+    </view>
+  </view>
+
+  <view class="logo">
+    <image class="logo-image {{showAnimate ? 'logo-show' : ''}}" mode="widthFix" src="https://bj-mutou-1301404888.cos.ap-beijing.myqcloud.com/lastYearToday/logo-3.png"></image>
+  </view>
+
+  <view class="guide-footer {{showAnimate ? 'footer-show' : '' }}">
+    <!-- 选择图片 -->
+    <button type="primary" bindtap="handleChoosePic">选择照片</button>
+  </view>
+
+  <mp-half-screen-dialog bindbuttontap="handleLayoutConfirmClick" show="{{showLayoutMode}}" title="请选择拍摄布局" buttons="{{buttons}}">
+    <view slot="desc">
+      <view class="layout-mode-wrapper">
+        <view bindtap="handleLayoutCheck" data-mode="old-top" class="layout-item {{choosedLayoutMode === 'old-top' ? 'layout-item-checked' : ''}}">
+          <view>1、左边是旧图，右边是取景框</view>
+          <view class="layout-item-image-wrapper">
+            <image class="layout-item-image" mode="widthFix" src="https://bj-mutou-1301404888.cos.ap-beijing.myqcloud.com/lastYearToday/old-left.png"></image>
+          </view>
+        </view>
+
+        <view bindtap="handleLayoutCheck" data-mode="old-down" class="layout-item {{choosedLayoutMode === 'old-down' ? 'layout-item-checked' : ''}}">
+          <view>2、左边是取景框，右边是旧图</view>
+          <view class="layout-item-image-wrapper">
+            <image class="layout-item-image" mode="widthFix" src="https://bj-mutou-1301404888.cos.ap-beijing.myqcloud.com/lastYearToday/old-right.png"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </mp-half-screen-dialog>
+</view>

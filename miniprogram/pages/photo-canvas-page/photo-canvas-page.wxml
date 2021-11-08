@@ -1,0 +1,41 @@
+<wxs module="move" src="./move.wxs"></wxs>
+<view class="container" disableScroll="true">
+  <view class="body">
+    <!-- 左边的球 -->
+    <view class="leftBall" style="top: {{configBallTop}}px" data-window="{{systemInfo}}" catchtouchstart="{{move.touchstartByLeftBall}}" catchtouchmove="{{move.touchmoveByLeftBall}}" catchtouchend="{{move.touchendByLeftBall}}">
+    </view>
+
+    <!-- 右边的球 -->
+    <view class="rightBall" style="top: {{configBallTop}}px" data-window="{{systemInfo}}" catchtouchstart="{{move.touchstartByRightBall}}" catchtouchmove="{{move.touchmoveByRightBall}}" catchtouchend="{{move.touchendByRightBall}}">
+    </view>
+
+    <!-- 主canvas -->
+    <canvas disableScroll="true" type="2d" id="main-canvas" class="main-canvas" catchtouchstart="handleMainCavStart" catchtouchmove="handleMainCavMove" catchtouchend="handleMainCavEnd"></canvas>
+
+    <!-- 遮罩层canvas -->
+    <canvas disableScroll="true" type="2d" id="wrapper-canvas" class="wrapper-canvas" style="z-index: {{isWrapperMode ? 10 : 0}};"></canvas>
+
+    <!-- 相机 -->
+    <camera wx:if="{{showCamera}}" class="camera-dom" resolution="high" device-position="back" frame-size="large">
+    </camera>
+
+  </view>
+  <view class="footer">
+    <view class="footer-left">
+      <!-- 透明度 -->
+      <view class="alpha-button" bindtap="handleAlphaButtonClick"></view>
+    </view>
+    <view class="footer-center">
+      <!-- 背景图 -->
+      <!-- <view class="footer-center-circle"></view> -->
+      <!-- 拍照按钮 -->
+      <view class="take-photo-wrapper" hover-class="take-photo-hover" bindtap="handleTakePhoto">
+
+      </view>
+    </view>
+    <view class="footer-right">
+      <!-- 旋转 -->
+      <view class="zoom-button" bindtap="handleRotateClick"></view>
+    </view>
+  </view>
+</view>
