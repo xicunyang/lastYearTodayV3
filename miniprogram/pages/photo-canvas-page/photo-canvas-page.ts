@@ -247,7 +247,6 @@ Page({
     if (!this.data.initDone) return;
 
     let alphaNum = choosedCavImage.globalAlpha;
-    console.log('alphaNum:::', alphaNum);
 
     if (alphaNum === AlphaEnum.Mid) {
       alphaNum = AlphaEnum.Height;
@@ -278,6 +277,25 @@ Page({
 
     this._showToast('旋转90度');
     choosedCavImage.setRotate(rotateNum);
+  },
+
+  handleBackButtonClick() {
+    wx.showModal({
+      title: '提示',
+      content: '确定取消拍摄吗?',
+      success(res) {
+        if (res.confirm) {
+          wx.navigateBack();
+        }
+      }
+    })
+  },
+
+  handleResetButtonClick() {
+    wx.showToast({
+      title: '定位到中心',
+    });
+    choosedCavImage.resetToCenter();
   },
 
   handleTakePhoto() {

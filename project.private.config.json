@@ -1,0 +1,23 @@
+{
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/photo-canvas-page/photo-canvas-page",
+          "pathName": "pages/photo-canvas-page/photo-canvas-page",
+          "query": "picSrc=http%3A%2F%2Ftmp%2Fble3LCW7GJAL1074d259fff3b515ed45218564074ad3.png&layoutMode=old-top",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

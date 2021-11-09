@@ -7,6 +7,8 @@ let canvasPhotoChangeObj: any;
 let configCanvas: any;
 let configCtx: any;
 
+let savedFilePath = '';
+
 enum ColorEnum {
   None = 'none',
   Gray = 'gray',
@@ -293,33 +295,62 @@ Page({
           wx.showToast({
             title: '保存成功'
           })
+          this._showShared();
         }).catch(() => {
           wx.hideLoading();
-          wx.showToast({
-            title: '保存失败'
-          })
+          this._showSaveError();
         })
+      },
+      fail: () => {
+        wx.hideLoading();
+        this._showSaveError();
       }
     })
   },
   _saveForNewPic() {
+    // 已有缓存
+    if (savedFilePath) {
+      this._saveToPhotosAlbum(savedFilePath);
+      return
+    }
+
     wx.saveFile({
       tempFilePath: takePhotoSrc,
-      success(res) {
-        wx.saveImageToPhotosAlbum({
-          filePath: res.savedFilePath
-        }).then(() => {
-          wx.hideLoading();
-          wx.showToast({
-            title: '保存成功'
-          })
-        }).catch(() => {
-          wx.hideLoading();
-          wx.showToast({
-            title: '保存失败'
-          })
-        })
+      success: (res) => {
+        savedFilePath = res.savedFilePath;
+        this._saveToPhotosAlbum(savedFilePath);
+      },
+      fail: () => {
+        wx.hideLoading();
+        this._showSaveError();
       }
     })
+  },
+  _saveToPhotosAlbum(savedFilePath: string) {
+    wx.saveImageToPhotosAlbum({
+      filePath: savedFilePath
+    }).then(() => {
+      wx.hideLoading();
+      wx.showToast({
+        title: '保存成功'
+      })
+      this._showShared();
+    }).catch(() => {
+      wx.hideLoading();
+      this._showSaveError();
+    })
+  },
+  _showSaveError(title: string = '保存失败') {
+    wx.showToast({
+      title,
+      icon: 'error'
+    })
+  },
+  _showShared() {
+    setTimeout(() => {
+      wx.showToast({
+        title: '快去分享吧'
+      })
+    }, 1000)
   }
 })

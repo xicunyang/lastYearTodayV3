@@ -2,18 +2,24 @@
 <view class="container" disableScroll="true">
   <view class="body">
     <!-- 左边的球 -->
-    <view class="leftBall" style="top: {{configBallTop}}px" data-window="{{systemInfo}}" catchtouchstart="{{move.touchstartByLeftBall}}" catchtouchmove="{{move.touchmoveByLeftBall}}" catchtouchend="{{move.touchendByLeftBall}}">
+    <view class="leftBall" style="top: {{configBallTop}}px" data-window="{{systemInfo}}"
+      catchtouchstart="{{move.touchstartByLeftBall}}" catchtouchmove="{{move.touchmoveByLeftBall}}"
+      catchtouchend="{{move.touchendByLeftBall}}">
     </view>
 
     <!-- 右边的球 -->
-    <view class="rightBall" style="top: {{configBallTop}}px" data-window="{{systemInfo}}" catchtouchstart="{{move.touchstartByRightBall}}" catchtouchmove="{{move.touchmoveByRightBall}}" catchtouchend="{{move.touchendByRightBall}}">
+    <view class="rightBall" style="top: {{configBallTop}}px" data-window="{{systemInfo}}"
+      catchtouchstart="{{move.touchstartByRightBall}}" catchtouchmove="{{move.touchmoveByRightBall}}"
+      catchtouchend="{{move.touchendByRightBall}}">
     </view>
 
     <!-- 主canvas -->
-    <canvas disableScroll="true" type="2d" id="main-canvas" class="main-canvas" catchtouchstart="handleMainCavStart" catchtouchmove="handleMainCavMove" catchtouchend="handleMainCavEnd"></canvas>
+    <canvas disableScroll="true" type="2d" id="main-canvas" class="main-canvas" catchtouchstart="handleMainCavStart"
+      catchtouchmove="handleMainCavMove" catchtouchend="handleMainCavEnd"></canvas>
 
     <!-- 遮罩层canvas -->
-    <canvas disableScroll="true" type="2d" id="wrapper-canvas" class="wrapper-canvas" style="z-index: {{isWrapperMode ? 10 : 0}};"></canvas>
+    <canvas disableScroll="true" type="2d" id="wrapper-canvas" class="wrapper-canvas"
+      style="z-index: {{isWrapperMode ? 10 : 0}};"></canvas>
 
     <!-- 相机 -->
     <camera wx:if="{{showCamera}}" class="camera-dom" resolution="high" device-position="back" frame-size="large">
@@ -22,6 +28,8 @@
   </view>
   <view class="footer">
     <view class="footer-left">
+      <!-- 返回按钮 -->
+      <view class="back-button" bindtap="handleBackButtonClick"></view>
       <!-- 透明度 -->
       <view class="alpha-button" bindtap="handleAlphaButtonClick"></view>
     </view>
@@ -36,6 +44,8 @@
     <view class="footer-right">
       <!-- 旋转 -->
       <view class="zoom-button" bindtap="handleRotateClick"></view>
+      <!-- 重置 -->
+      <view class="reset-button" bindtap="handleResetButtonClick"></view>
     </view>
   </view>
 </view>

@@ -77,6 +77,13 @@ module.exports = class CavImage {
 
     // 装载图片信息对象
     await this._loadImageInfo();
+
+    if (this.layoutMode === 'old-down') {
+      this.moveCurrentPoint = {
+        x: 0,
+        y: this.rightPointY
+      }
+    }
   }
 
   // 开始绘制
@@ -188,6 +195,14 @@ module.exports = class CavImage {
   }) {
     const ctx = this.ctx;
     const { windowWidth, windowHeight } = this.systemInfo;
+    const {
+      coordinateX, // 原点平移的X
+      coordinateY, // 原点平移的Y
+      dx, // 图片绘制左上角X
+      dy, // 图片绘制左上角Y
+      imgW, // 图片宽度
+      imgH // 图片高度
+    } = this._calcDrawPosition();
 
     ctx.clearRect(0, 0, windowWidth, windowHeight);
     ctx.globalAlpha = this.globalAlpha;
@@ -201,29 +216,20 @@ module.exports = class CavImage {
       this._drawPreviewRect(ctx);
     }
 
-    const {
-      coordinateX, // 原点平移的X
-      coordinateY, // 原点平移的Y
-      dx, // 图片绘制左上角X
-      dy, // 图片绘制左上角Y
-      imgW, // 图片宽度
-      imgH // 图片高度
-    } = this._calcDrawPosition();
-
-
     // 先保存旧的坐标系状态
     ctx.save();
     // 将原点移动到图片中心
     ctx.translate(coordinateX, coordinateY);
+
     // 旋转坐标系
     ctx.rotate(this.rotateNum * Math.PI / 180);
     // 复原坐标系
     ctx.translate(-coordinateX, -coordinateY);
+
     // 绘制图片
     ctx.drawImage(this.cavImage, dx, dy, imgW, imgH);
     // 还原
     ctx.restore();
-
     ctx.restore();
   }
 
@@ -253,7 +259,54 @@ module.exports = class CavImage {
 
   public setRotate(rotate: number) {
     this.rotateNum = rotate;
-    this.draw({ clip: true });
+    // this.draw({ clip: true });
+    this.resetToCenter();
+  }
+
+  public resetToCenter() {
+    const ctx = this.ctx;
+    // 缩放为1
+    this.scale = 1;
+
+    const { windowWidth, windowHeight } = this.systemInfo;
+    const { width: imageBaseWidth, height: imageBaseHeight } = this.imageInfo;
+
+    ctx.clearRect(0, 0, windowWidth, windowHeight);
+
+    ctx.save();
+    this._drawPreviewRect(ctx);
+    ctx.clip();
+
+    const coordinateX = windowWidth / 2;
+    let rightPointY = this.rightPointY;
+    // 兼容两种模式
+    if (this.layoutMode === 'old-down') {
+      rightPointY = (this.rightPointY + (windowHeight - 80 - rightPointY) / 2) * 2;
+    }
+
+    const coordinateY = rightPointY / 2;
+
+    // 先保存旧的坐标系状态
+    ctx.save();
+
+    // 将原点移动到画布中心
+    ctx.translate(coordinateX, coordinateY);
+
+    ctx.rotate(this.rotateNum * Math.PI / 180);
+
+    ctx.drawImage(this.cavImage, -imageBaseWidth / 2, -imageBaseHeight / 2, imageBaseWidth, imageBaseHeight);
+
+    this.moveCurrentPoint = {
+      x: -imageBaseWidth / 2 + coordinateX,
+      y: -imageBaseHeight / 2 + coordinateY
+    }
+
+    this.centerPoint = {
+      x: 0,
+      y: 0
+    }
+
+    ctx.restore();
   }
 
   _calcDrawPosition() {
@@ -273,6 +326,7 @@ module.exports = class CavImage {
     const imgW = this.scale * (imageBaseWidth || 1);
     const imgH = this.scale * (imageBaseHeight || 1);
 
+    // 找到裁剪区域中心点
     const coordinateX = dx + imgW / 2;
     const coordinateY = dy + imgH / 2;
 
@@ -332,7 +386,26 @@ module.exports = class CavImage {
   }
 
   private async _loadImageInfo() {
-    const { width, height } = await this._getImageInfo();
+    let { width, height } = await this._getImageInfo();
+    const { windowWidth } = this.systemInfo;
+
+    // 图片过小
+    if (width < windowWidth) {
+      height = height * windowWidth / width
+      width = windowWidth;
+    }
+    // 图片过大
+    if (width > windowWidth) {
+      height = height * windowWidth / width
+      width = windowWidth;
+    }
+
+    // TODO: 后续优化，导入的照片自动布局
+    // // 图片角度，当是竖着的照片时，自动旋转90度
+    // if (height < width) {
+    //   this.rotateNum = 90;
+    // }
+
     this.imageInfo = {
       width, height
     }

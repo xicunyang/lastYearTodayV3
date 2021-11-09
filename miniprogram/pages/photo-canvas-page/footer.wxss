@@ -15,7 +15,7 @@
   background-color: #4d4d4d;
   height: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   z-index: 100;
 }
@@ -75,7 +75,7 @@
 }
 
 .alpha-button {
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 
 .alpha-button:before {
@@ -94,4 +94,20 @@
   font-size: 25px;
   color: #fff;
   line-height: 40px;
+}
+
+.reset-button:before {
+  font-family: 'iconfont';
+  content: '\e93f';
+  font-size: 35px;
+  color: #fff;
+  line-height: 40px;
+}
+
+.back-button:before {
+  font-family: 'iconfont';
+  content: '\e61f';
+  font-size: 25px;
+  color: white;
+  line-height: 28px;
 }

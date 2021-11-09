@@ -27,21 +27,18 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    console.log('当前时间 2', new Date());
+    // console.log('当前时间 2', new Date());
 
     // wx.navigateTo({
     //   // 大图 http://tmp/2fy9B2xX1pzq1074d259fff3b515ed45218564074ad3.png
     //   // 小图 http://tmp/jQZNyyJW4QCs1024733205bb1390ccbc230832d68245.png
     //   // url: `/pages/photo-canvas-page/photo-canvas-page?picSrc=https://b.yzcdn.cn/test-file/未标题-2.png`,
-    //   url: `/pages/photo-canvas-page/photo-canvas-page?picSrc=http://tmp/928WKXBUIkWT1074d259fff3b515ed45218564074ad3.png&layoutMode=old-down`,
+    //   url: `/pages/photo-canvas-page/photo-canvas-page?picSrc=https://b.yzcdn.cn/test-file/未标题-2.png&layoutMode=old-down`,
     // })
 
     // setInterval(() => {
     //   this.handleChange();
     // }, 3000)
-
-    console.log('1------');
-
 
     this._loadAnimate();
     this._loadForTimelineShared();
@@ -79,6 +76,12 @@ Page({
 
     this.setData({
       choosedLayoutMode: mode
+    })
+  },
+
+  handleShow() {
+    wx.previewImage({
+      urls: ['https://bj-mutou-1301404888.cos.ap-beijing.myqcloud.com/lastYearToday/test-money.jpeg']
     })
   },
 
