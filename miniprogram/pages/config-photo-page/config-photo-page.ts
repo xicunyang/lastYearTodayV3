@@ -69,7 +69,8 @@ Page({
         className: 'layout-confirm-button',
         text: '保存',
       }
-    ]
+    ],
+    showOfficialAccount: false
   },
 
   /**
@@ -347,6 +348,9 @@ Page({
     })
   },
   _showShared() {
+    this.setData({
+      showOfficialAccount: true
+    })
     setTimeout(() => {
       wx.showToast({
         title: '快去分享吧'

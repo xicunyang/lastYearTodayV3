@@ -22,6 +22,8 @@
     <button type="primary" bindtap="handleChoosePic">选择照片</button>
   </view>
 
+  <official-account class="official-account {{showAnimate ? 'official-account-show' : '' }}"></official-account>
+
   <mp-half-screen-dialog bindbuttontap="handleLayoutConfirmClick" show="{{showLayoutMode}}" title="请选择拍摄布局"
     buttons="{{buttons}}">
     <view slot="desc">

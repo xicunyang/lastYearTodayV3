@@ -1,4 +1,6 @@
 <view class="container" disableScroll="true">
+  <official-account class="official-account {{showOfficialAccount ? 'official-account-show' : '' }}"></official-account>
+
   <view class="body">
     <!-- 主canvas -->
     <canvas disableScroll="true" type="2d" id="main-canvas" class="main-canvas"></canvas>
@@ -7,27 +9,34 @@
   <view class="footer">
     <view class="back-wrapper" bindtap="handleBackClick"></view>
     <view class="color-group">
-      <view wx:for="{{colorGroup}}" wx:key="idx" wx:for-index="index" wx:for-item="groupItem" class="color-group-item {{groupItem.color}} {{activeColorIndex === index ? 'active' : ''}}" bindtap="handleColorChange" data-index="{{index}}">
+      <view wx:for="{{colorGroup}}" wx:key="idx" wx:for-index="index" wx:for-item="groupItem"
+        class="color-group-item {{groupItem.color}} {{activeColorIndex === index ? 'active' : ''}}"
+        bindtap="handleColorChange" data-index="{{index}}">
         {{groupItem.text}}
       </view>
     </view>
     <view class="save-button-wrapper" hover-class="save-button-wrapper-hover" bindtap="handleSaveButtonClick"></view>
   </view>
 
-  <mp-half-screen-dialog bindbuttontap="handleSaveModeConfirmClick" show="{{showSaveMode}}" title="请选择保存内容" buttons="{{buttons}}">
+  <mp-half-screen-dialog bindbuttontap="handleSaveModeConfirmClick" show="{{showSaveMode}}" title="请选择保存内容"
+    buttons="{{buttons}}">
     <view slot="desc">
       <view class="layout-mode-wrapper">
-        <view bindtap="handleSaveModeClick" data-mode="both" class="layout-item {{saveMode === 'both' ? 'layout-item-checked' : ''}}">
+        <view bindtap="handleSaveModeClick" data-mode="both"
+          class="layout-item {{saveMode === 'both' ? 'layout-item-checked' : ''}}">
           <view>1、保存处理后的图片</view>
           <view class="layout-item-image-wrapper">
-            <image class="layout-item-image" mode="widthFix" src="https://bj-mutou-1301404888.cos.ap-beijing.myqcloud.com/lastYearToday/old-right.png"></image>
+            <image class="layout-item-image" mode="widthFix"
+              src="https://bj-mutou-1301404888.cos.ap-beijing.myqcloud.com/lastYearToday/old-right.png"></image>
           </view>
         </view>
 
-        <view bindtap="handleSaveModeClick" data-mode="new-pic" class="layout-item {{saveMode === 'new-pic' ? 'layout-item-checked' : ''}}">
+        <view bindtap="handleSaveModeClick" data-mode="new-pic"
+          class="layout-item {{saveMode === 'new-pic' ? 'layout-item-checked' : ''}}">
           <view>2、只保存新拍摄的图片</view>
           <view class="layout-item-image-wrapper">
-            <image class="layout-item-image" mode="widthFix" src="https://bj-mutou-1301404888.cos.ap-beijing.myqcloud.com/lastYearToday/new-pic.png"></image>
+            <image class="layout-item-image" mode="widthFix"
+              src="https://bj-mutou-1301404888.cos.ap-beijing.myqcloud.com/lastYearToday/new-pic.png"></image>
           </view>
         </view>
       </view>

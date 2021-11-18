@@ -1,4 +1,5 @@
 {
+  "setting": {},
   "condition": {
     "plugin": {
       "list": []
@@ -16,6 +17,12 @@
           "pathName": "pages/photo-canvas-page/photo-canvas-page",
           "query": "picSrc=http%3A%2F%2Ftmp%2Fble3LCW7GJAL1074d259fff3b515ed45218564074ad3.png&layoutMode=old-top",
           "scene": null
+        },
+        {
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
+          "query": "",
+          "scene": 1011
         }
       ]
     }

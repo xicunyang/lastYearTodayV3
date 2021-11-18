@@ -60,5 +60,18 @@
 }
 
 .footer-show {
-  bottom: 0px;
+  bottom: 60px;
+}
+
+.official-account {
+  position: fixed;
+  bottom: -230px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  transition: bottom 1s;
+}
+
+.official-account-show {
+  bottom: 0;
 }
